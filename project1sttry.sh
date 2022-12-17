@@ -35,6 +35,92 @@ fi
 }
 
 
+
+
+
+
+
+
+
+
+function databaseconnectionselection(){
+
+    options=("Create-Table" "List-all-Tables" "Drop-Table" "Insert-Into-Table" "Select-from-table" "Exit")
+
+select opt in "${options[@]}"
+do 
+case $opt in
+"Create-Table") 
+createdatabase
+
+;;
+"List-all-Tables")
+
+clear
+
+echo "List all Databases" 
+echo "-------------------------------------------------------------------------"
+
+var=` ls -d */`
+counter=1
+for i in $var
+do 
+
+echo "$counter) $i"
+echo "-------------------------------------------------------------------------"
+
+counter=$[$counter +1]
+done
+
+
+
+
+ selection
+;;
+"Drop-Tables")
+echo "Drop Database" 
+break ;
+;;
+"Insert-Into-Table")
+echo "Connect Database" 
+break ;
+;;
+"Select-from-table")
+echo "Select-from-table"
+break ;
+;;
+"Exit")
+echo "Exit"
+break ;
+;;
+esac
+done
+   
+}
+
+
+
+
+
+
+
+
+
+function connectdb(){
+
+    if [[ -e $dir ]] ; then
+clear
+echo "-----------------------------------------------------"
+echo "Connected to $dbname database"
+echo "-----------------------------------------------------"
+
+databaseconnectionselection
+
+fi
+
+}
+
+
 function selection(){
 
     options=("Create-Database" "List-all-Databases" "Drop-Database" "Connect-Database" "Exit")
@@ -59,14 +145,10 @@ for i in $var
 do 
 
 echo "$counter) $i"
+echo "-------------------------------------------------------------------------"
 
 counter=$[$counter +1]
 done
-
-
-echo "-------------------------------------------------------------------------"
-
-
  selection
 ;;
 "Drop-Database")
@@ -74,8 +156,9 @@ echo "Drop Database"
 break ;
 ;;
 "Connect-Database")
-echo "Connect Database" 
-break ;
+    read -p "Please enter database name to connect" dbname
+
+connectdb
 ;;
 Exit)
 echo "Exit" 
