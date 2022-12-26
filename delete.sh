@@ -50,46 +50,45 @@ function delete_from_table(){
 
 
 declare -i flag=0
-read -p "please enter table name : " delete_table_name
+read -r -p "please enter table name : " delete_table_name
 
-     while [ ! -e $delete_table_name ]
+while [ ! -e $delete_table_name ]
+    do
+    echo "table doesnt exist , try again or exit"
+    read -r delete_table_name
+    if [ $delete_table_name == 'exit' ]
+        then flag=1
+        break
+    fi
+    done
+if [ ! $flag == 1 ]
+    then
+    read -r -p "please enter column name : " delete_column_name
+    flag2=$(check_valid_col_name $delete_table_name $delete_column_name)
+    while [ ! $flag2 ]
         do
-            echo "table doesnt exist , try again or exit"
-            read delete_table_name
-            if [ $delete_table_name == 'exit' ]
-                then flag=1
-                break
-            fi
+        read -r -p "column doesn't exist please enter a valid column name : " delete_column_name
+        flag2=$(check_valid_col_name $delete_table_name $delete_column_name)
+        if [ $delete_column_name == 'exit' ]
+        then 
+        break
+        fi
         done
-        if [ ! $flag == 1 ]
-        then
-            read -p "please enter column name : " delete_column_name
-            flag2=$(check_valid_col_name $delete_table_name $delete_column_name)
-            while [ ! $flag2 ]
-            do
-            read -p "column doesn't exist please enter a valid column name : " delete_column_name
-            flag2=$(check_valid_col_name $delete_table_name $delete_column_name)
-                if [ $delete_column_name == 'exit' ]
-                then 
-                break
-            fi
-            done
-            if [ $flag2 ]
-            then
-            col_num2=$(col_num $delete_table_name $delete_column_name)
-            read -p "Please enter value to delete : " value_delete
-            declare -a var
-
-            var=$(select_where $value_delete $delete_table_name)
-            declare -i count=0
-            for i in ${var[@]}; 
-            do
-            delete_from_table $(($i-$count))
-            count=count+1
-            done
-            echo "$count rows affected"
-            fi
-            fi
+if [ $flag2 ]
+    then
+        col_num2=$(col_num $delete_table_name $delete_column_name)
+        read -r -p "Please enter value to delete : " value_delete
+        declare -a var
+var=$(select_where $value_delete $delete_table_name)
+declare -i count=0
+for i in ${var[@]}; 
+    do
+    delete_from_table $(($i-$count))
+    count=count+1
+    done
+echo "$count rows affected"
+fi
+fi
 
 
 
