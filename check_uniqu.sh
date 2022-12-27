@@ -7,7 +7,7 @@ awk -F':' -v value=$1 '{
         print(1);
         }
 }
-} ' db
+} ' "$2"
 }
-var=$(validate_unique 4)
+var=$(validate_unique 1 db)
 echo $var
