@@ -5,12 +5,14 @@
 # else {print}}' 
 # # amr)" >am
 # value=$(awk -v n=$n '{if(NR == 2) {next}{print}}' amr2)
-function select_where(){
+#####function select_where() gets a coloumn number and searches for a  value in that coloumn and it ignores the first line and returns the record number
+function select_where(){          
     awk -F ':' -v value=$1 -v col_num=$col_num2 '{                    
         if($col_num == value && NR!=1)
             print(NR)
     } ' $2
 }
+###function col_num() searches for the coloumn number in the first line and returns it
 function col_num(){
 awk -F : -v value=$2 '{
  for (i=1; i<NF; i++){
@@ -21,6 +23,7 @@ awk -F : -v value=$2 '{
 
 }' $1
 }
+##function check_valid_col_name() checks if the coloumn name exists in the first line only
 
  function check_valid_col_name(){
                   awk -F : -v value=$2 '{
@@ -33,10 +36,10 @@ awk -F : -v value=$2 '{
 
 }' $1
                     }
-        
+#delete_from_table() gets the records numbers and deletes them
 function delete_from_table(){
-        echo -e  $(awk -F : -v col_num3=$1 '{
-            if(NR == col_num3){
+        echo -e  $(awk -F : -v record_num=$1 '{
+            if(NR == record_num){
                 next
             }
             else{
@@ -89,13 +92,3 @@ for i in ${var[@]};
 echo "$count rows affected"
 fi
 fi
-
-
-
-
-
-
-
-
-
-
