@@ -12,21 +12,21 @@ awk -F : -v value=$2 '{
 }
 
 
-read -p "Please enter Table name " table_name
+read -r -p "Please enter Table name " table_name
 
      while [ ! -e $table_name ]
         do
             echo "table doesnt exist , try again or exit"
-            read table_name
+            read -r table_name
             if [ $table_name == 'exit' ]
                 then break
             fi
         done
         echo "Please enter column you want to select from : "
-        read column
+        read -r column
         colNum=$(col_num $table_name $column)   
         echo "Please enter value you want to select: "
-        read select_value
+        read -r select_value
 
 function select_where(){
     awk -F ':' -v value=$1 -v col_num=$3 '{                    

@@ -22,6 +22,7 @@ break ;
 ;;
 "Insert-Into-Table")
 source ../.././insertTable.sh
+databaseconnectionselection
 break
 ;;
 "Select-from-table")
@@ -33,14 +34,17 @@ break ;
 ;;
 "delete-from-table")
 source ../.././delete.sh
+databaseconnectionselection
 break
 ;;
 "update-table")
 source ../.././update.sh
+databaseconnectionselection
 break
 ;;
 "Exit")
 echo "Exit"
+cd ..
 break ;
 ;;
 esac
@@ -57,8 +61,8 @@ done
 
 
 function connectdb(){
-        read -p "Please enter database name to connect : " dbname
-    if [[ -e $dbname ]] ; then
+        read -r -p "Please enter database name to connect : " dbname
+    if [[ -e $dbname && $dbname != "/" && ! -z $dbname  ]] ; then
 clear
 echo "-----------------------------------------------------"
 echo "Connected to $dbname database"
@@ -70,5 +74,4 @@ echo "database name doesn't exist "
 fi
 
 }
-
 connectdb

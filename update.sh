@@ -18,7 +18,7 @@ awk -F':' -v value=$1 '{
 function type_check(){
     while [ -e $update_table_name ]
     do
-                read -p "Enter value to be updated : " update_value
+                read -r -p "Enter value to be updated : " update_value
 
         if (( $col_num2 == 1));
             then   
@@ -26,7 +26,7 @@ function type_check(){
                 while [ "$var" == 1 ]
                 do
                     echo "pk is not unique"
-                    read update_value
+                    read -r update_value
                 var=$(validate_unique $update_value $update_table_name)
                 done
             fi
@@ -99,7 +99,7 @@ read -r -p "please enter table name : " update_table_name
 while [ ! -e $update_table_name ]
     do
     echo "table doesnt exist , try again or exit"
-    read -r update_table_name
+    read  -r update_table_name
     if [ $update_table_name == 'exit' ]
         then flag=1
         break
@@ -111,7 +111,7 @@ if [ ! $flag == 1 ]
     flag2=$(check_valid_col_name $update_table_name $update_column_name)
     while [ ! $flag2 ]
         do
-        read -r -p "column doesn't exist please enter a valid column name : " update_column_name
+        read  -r -p "column doesn't exist please enter a valid column name : " update_column_name
         flag2=$(check_valid_col_name $update_table_name $update_column_name)
         if [ $update_column_name == 'exit' ]
         then 
@@ -121,7 +121,7 @@ if [ ! $flag == 1 ]
 if [ $flag2 ]
     then
         col_num2=$(col_num $update_table_name $update_column_name)
-        read -r -p "Please enter value you want to update : " field_update
+        read  -r -p "Please enter value you want to update : " field_update
         declare -a var2
 var2=$(select_where $field_update $update_table_name)
 col_type=$(head -n1 "$update_table_name.md" | sed  $'s/:/ /g' | awk -v i=$col_num2 -F " " '{ print $i }')

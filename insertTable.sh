@@ -2,11 +2,11 @@
 # function insert_into_table()
 # {
 #     echo "please enter table name"
-#     read table2
+#     read -r table2
 #     while [ ! -e $table2 ]
 #         do
 #             echo "table doesnt exist , try again or exit"
-#             read table2
+#             read -r table2
 #             if [ $table2 == 'exit' ]
 #                 then break
 #             fi
@@ -14,7 +14,7 @@
 #     while [ -e $table2 ]
 #     do
 #         echo "please enter the primary key"
-#         read pk1
+#         read -r pk1
 #         x=$(head -n1 "./$table2.md" | awk -F : '{print $1;}')
 #         if [ "$x" = "int" ] && [[ $pk1 =~ [0-99]+$ ]]
 #             then echo  "$pk1:" >> $table2
@@ -49,11 +49,11 @@ awk -F':' -v value=$1 '{
 
 
     echo "please enter table name"
-    read table2
+    read -r table2
     while [ ! -e $table2 ]
         do
             echo "table doesnt exist , try again or exit"
-            read table2
+            read -r table2
             if [ $table2 == 'exit' ]
                 then break
             fi
@@ -73,14 +73,14 @@ for i in $(seq 1 $number);
         while [ -e $table2 ]
         do
             echo "please enter the $col_name" 
-            read x
+            read -r x
             if (( $i==1 ));
             then   
                 var=$(validate_unique $x $table2)
                 while [ "$var" = 1 ]
                 do
                     echo "pk is not unique"
-                    read x
+                    read -r x
                     var=$(validate_unique $x $table2) 
                 done
             fi
@@ -121,11 +121,11 @@ for i in $(seq 1 $number);
 # function insert_into_table()
 # {
 #     echo "please enter table name"
-#     read table2
+#     read -r table2
 #     while [ ! -e $table2 ]
 #         do
 #             echo "table doesnt exist , try again or exit"
-#             read table2
+#             read -r table2
 #             if [ $table2 == 'exit' ]
 #                 then break
 #             fi
@@ -141,7 +141,7 @@ for i in $(seq 1 $number);
 #         do    
 #             echo "$i"
 #         echo "please enter the primary key"
-#         read pk1
+#         read -r pk1
 #         x=$(head -n1 "./$table2.md" | awk -F : '{print $1;}')
 #         if [ x=="int" ] && [[ $pk1 =~ [0-99]+$ ]]
 #             then echo  "$pk1:" >> $table2

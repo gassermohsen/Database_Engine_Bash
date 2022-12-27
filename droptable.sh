@@ -1,5 +1,5 @@
-read -p "Please enter table to drop " drop
-  if [[ -e $drop ]] ; then
+read -r -p "Please enter table to drop " drop
+  if [[ -e $drop && ! -z $drop ]] ; then
 clear
 echo "-----------------------------------------------------"
 echo "$drop table deleted succefully"
@@ -10,5 +10,4 @@ else
 echo "-------------------------------------------------------------------------"
 echo "Can't delete table the name doesn't exist"
 echo "-------------------------------------------------------------------------"
-selection
 fi

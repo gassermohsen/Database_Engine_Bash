@@ -1,9 +1,9 @@
 #function to create database 
 function createdatabase(){
 
-    read -p "Please enter database name " dir
+    read -r -p "Please enter database name " dir
 
-if [[ ! -e $dir && $dir =~ ^([a-zA-Z\_])+([a-zA-Z0-9\_])*$ ]]; then
+if [[ ! -e $dir && $dir =~ ^([a-zA-Z\_])+([a-zA-Z0-9\_])*$ && ! -z $dir ]]; then
     mkdir $dir
     clear
     echo "-----------------------------------------------------"

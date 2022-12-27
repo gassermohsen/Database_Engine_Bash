@@ -64,7 +64,7 @@ while [ ! -e $delete_table_name ]
         break
     fi
     done
-if [ ! $flag == 1 ]
+if [ ! $flag == 1  ]
     then
     read -r -p "please enter column name : " delete_column_name
     flag2=$(check_valid_col_name $delete_table_name $delete_column_name)

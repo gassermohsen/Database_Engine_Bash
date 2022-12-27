@@ -1,5 +1,5 @@
-read -p "Please enter database to delete " drop
-  if [[ -e $drop ]] ; then
+read -r -p "Please enter database to delete " drop
+  if [[ -e $drop && ! -z $drop  ]] ; then
 clear
 echo "-----------------------------------------------------"
 echo "$drop database deleted succefully"

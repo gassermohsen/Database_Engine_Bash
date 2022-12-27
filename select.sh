@@ -26,12 +26,12 @@ done
 }
 
 function showTable(){
-    read -p "Please enter Table name " table_name
+    read -r -p "Please enter Table name " table_name
 
      while [ ! -e $table_name ]
         do
             echo "table doesnt exist , try again or exit"
-            read table_name
+            read -r table_name
             if [ $table_name == 'exit' ]
                 then break
             fi
@@ -45,18 +45,18 @@ function showTable(){
 
 
 function col_num(){
-    read -p "Please enter Table name " table_name
+    read -r -p "Please enter Table name " table_name
 
      while [ ! -e $table_name ]
         do
             echo "table doesnt exist , try again or exit"
-            read table_name
+            read -r table_name
             if [ $table_name == 'exit' ]
                 then break
             fi
         done
 
-      read -p "please enter number of columns you want to select from " col_num
+      read -r -p "please enter number of columns you want to select from " col_num
 
       declare -i number=$(head -n1 "./$table_name.md" | awk -F : '{print NF-1 ;}')
 
@@ -66,7 +66,7 @@ function col_num(){
     do
        
         echo "Please enter columns you want to select from the above : "
-        read -a arr 
+        read -r -a arr 
         #take columns from user and put in an array
         
                         addarr=()

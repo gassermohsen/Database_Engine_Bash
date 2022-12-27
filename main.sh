@@ -32,10 +32,12 @@ break
 ;;
 "Connect-Database")
 source .././connectdatabase.sh
+selection
 break
 ;;
 Exit)
 echo "Exit" 
+cd ..
 break;
 
 ;;

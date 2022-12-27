@@ -1,5 +1,4 @@
- echo "please enter table name"
-    read table_name
+
 
   
 function selectype (){
@@ -24,25 +23,29 @@ done
 function create_table()
 {   
    
-    while [[ ! $table_name =~ ^([a-zA-Z\_])+([a-zA-Z0-9\_])*$ ]];
+    echo "please enter table name"
+    read -r table_name
+
+    while [[ ! $table_name =~ ^([a-zA-Z\_])+([a-zA-Z0-9\_])*$ || -e $table_name  ]];
         do
-         echo "please enter a valid name choose 5 to Exit"
-         read table_name
+         echo "table name exist or you enter a valid name or type exit "
+         read -r table_name
+           if [ $table_name == 'exit' ]
+                then break
+            fi
         done
-    while [ -e $table_name ];
-        do
-            echo "This table is already exist,please enter another name"
-            read table_name
-        done
+  
+    if [[ ! -e $table_name && ! $table_name == "exit" &&  $table_name =~ ^([a-zA-Z\_])+([a-zA-Z0-9\_])*$ ]]
+    then  
     touch $table_name 
     touch "$table_name.md"
 
     echo "please enter the number of columns"
-    read num
+    read -r num
     while [[ ! $num =~ [0-99]+$  ]]
         do
         echo "please enter a valid number"
-        read num
+        read -r num
         echo "$num"
         done
     
@@ -52,22 +55,22 @@ function create_table()
             if (( $i==1 ));
                 then 
                     echo "please enter the primary key name"
-                    read pk
-                    while [[ ! $pk =~ ^([a-zA-Z\_])+([a-zA-Z0-9\_])*$ ]];
+                    read -r pk
+                    while [[ ! $pk =~ ^([a-zA-Z\_])+([a-zA-Z0-9\_])*$  ]];
                         do 
                             echo "please enter a valid column name"
-                            read pk
+                            read -r pk
                         done
                     echo "please enter type of key string/int"
                     selectype
                 echo -n "$pk:" >> $table_name
             else   
                 echo "please enter column name"
-                read variable
+                read -r variable
                 while [[ ! $variable =~ ^([a-zA-Z\_])+([a-zA-Z0-9\_])*$ ]];
                 do 
                     echo "please enter a valid column name"
-                    read variable
+                    read -r variable
                 done
                
                 echo "please enter type of column string/int"
@@ -80,6 +83,8 @@ function create_table()
             then   
                 echo "" >> $table_name
             fi
+        
         done
+        fi
 }
 create_table
